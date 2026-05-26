@@ -582,7 +582,7 @@ export default function Projects() {
     setActiveCategory(category);
 
     const firstProjectInCategory = projects.find(
-      (project) => category === "All" || project.category === category,
+      (project) => category === "All" || project.category === category
     );
 
     if (firstProjectInCategory) {
@@ -620,7 +620,10 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="relative px-4 py-20 sm:px-6 sm:py-24 lg:py-28">
+    <section
+      id="projects"
+      className="relative px-4 py-20 sm:px-6 sm:py-24 lg:py-28"
+    >
       <div className="mx-auto mb-12 max-w-7xl text-center">
         <p className="text-sm font-black uppercase tracking-[0.28em] text-teal-300">
           Projects
