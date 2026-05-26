@@ -1,0 +1,511 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+@import "tailwindcss";
+
+:root {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #f5f5f4;
+  background: #030304;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --mouse-x: 50vw;
+  --mouse-y: 50vh;
+}
+
+.font-display {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #030304;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+section {
+  scroll-margin-top: 110px;
+}
+
+.noise-layer {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* ---------- GLOBAL MOUSE EFFECT ---------- */
+
+.site-mouse-aura {
+  background:
+    radial-gradient(
+      520px circle at var(--mouse-x) var(--mouse-y),
+      rgba(45, 212, 191, 0.13),
+      rgba(251, 146, 60, 0.055) 34%,
+      rgba(15, 23, 42, 0.035) 48%,
+      transparent 72%
+    );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.site-cursor-ring {
+  left: var(--mouse-x);
+  top: var(--mouse-y);
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(45, 212, 191, 0.5);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 18px rgba(45, 212, 191, 0.35),
+    inset 0 0 10px rgba(45, 212, 191, 0.16);
+  opacity: 0.75;
+  transition:
+    width 0.18s ease,
+    height 0.18s ease,
+    opacity 0.18s ease;
+}
+
+/* ---------- SCROLL REVEAL ANIMATION ---------- */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(38px) scale(0.985);
+  filter: blur(7px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    filter 0.8s ease;
+  will-change: opacity, transform, filter;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.scroll-reveal.is-visible .project-card,
+.scroll-reveal.is-visible .timeline-card,
+.scroll-reveal.is-visible .profile-card,
+.scroll-reveal.is-visible .mission-card,
+.scroll-reveal.is-visible .research-card,
+.scroll-reveal.is-visible .contact-card {
+  animation: sectionChildRise 0.75s ease both;
+}
+
+@keyframes sectionChildRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ---------- NAVBAR CAT SPRITE ---------- */
+
+@keyframes catRun {
+  0% {
+    transform: translateX(-80px);
+  }
+
+  100% {
+    transform: translateX(1120px);
+  }
+}
+
+@keyframes catWalkFrames {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -512px;
+  }
+}
+
+.cat-runner {
+  width: 64px;
+  height: 64px;
+  background-image: url("/assets/cat-run.png");
+  background-repeat: no-repeat;
+  background-size: 512px 64px;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  animation:
+    catRun 16s linear infinite,
+    catWalkFrames 0.65s steps(8) infinite;
+}
+
+/* ---------- HERO CARD SPACE BACKGROUND ---------- */
+
+.hero-globe-card {
+  --mx: 50%;
+  --my: 50%;
+}
+
+.hero-space-base {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(45, 212, 191, 0.16), transparent 34%),
+    radial-gradient(circle at 76% 24%, rgba(251, 191, 36, 0.08), transparent 18%),
+    radial-gradient(circle at 18% 80%, rgba(59, 130, 246, 0.12), transparent 22%),
+    linear-gradient(135deg, #020617 0%, #030712 45%, #000 100%);
+}
+
+.hero-space-grid {
+  background-image:
+    linear-gradient(rgba(45, 212, 191, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 212, 191, 0.055) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
+  opacity: 0.55;
+}
+
+.hero-space-orbs {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 72% 32%, rgba(251, 191, 36, 0.7) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 84% 20%, rgba(45, 212, 191, 0.12) 0 14px, transparent 15px),
+    radial-gradient(circle at 76% 78%, rgba(251, 146, 60, 0.1) 0 10px, transparent 11px),
+    radial-gradient(circle at 30% 74%, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.5px);
+}
+
+.hero-mouse-aurora {
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgba(45, 212, 191, 0.18),
+    rgba(251, 146, 60, 0.055) 20%,
+    transparent 45%
+  );
+  transition: background 0.12s linear;
+  pointer-events: none;
+}
+
+/* ---------- HERO EARTH: FAKE 3D WITHOUT GLOW BOX ---------- */
+
+@keyframes heroEarthFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-2px) scale(1.035);
+  }
+}
+
+@keyframes heroEarthScan {
+  0% {
+    transform: translateX(-115%) skewX(-12deg);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.38;
+  }
+
+  60% {
+    opacity: 0.16;
+  }
+
+  100% {
+    transform: translateX(115%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+.hero-earth-depth {
+  animation: heroEarthFloat 4s ease-in-out infinite;
+  box-shadow:
+    inset -18px -18px 24px rgba(0, 0, 0, 0.45),
+    inset 12px 10px 20px rgba(255, 255, 255, 0.12),
+    0 18px 28px rgba(0, 0, 0, 0.38);
+}
+
+.hero-earth-photo {
+  transform: scale(1.18);
+  filter: saturate(1.08) contrast(1.05);
+}
+
+.hero-earth-shade {
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.16), transparent 25%),
+    radial-gradient(circle at 70% 72%, rgba(0, 0, 0, 0.55), transparent 58%),
+    linear-gradient(110deg, transparent 45%, rgba(0, 0, 0, 0.2) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.hero-earth-light {
+  background: radial-gradient(circle at 32% 22%, rgba(255, 255, 255, 0.25), transparent 28%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.hero-earth-scan {
+  width: 38%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: heroEarthScan 5.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ---------- HERO RINGS ---------- */
+
+@keyframes heroRingRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-ring-spin-slow {
+  animation: heroRingRotate 28s linear infinite;
+}
+
+.hero-ring-spin-medium {
+  animation: heroRingRotate 21s linear infinite reverse;
+}
+
+.hero-ring-spin-fast {
+  animation: heroRingRotate 16s linear infinite;
+}
+
+/* ---------- HERO DOTS ---------- */
+
+@keyframes heroDotRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-dot-spin-one {
+  animation: heroDotRotate 18s linear infinite;
+  transform-origin: center center;
+}
+
+.hero-dot-spin-two {
+  animation: heroDotRotate 14s linear infinite reverse;
+  transform-origin: center center;
+}
+
+.hero-dot-spin-three {
+  animation: heroDotRotate 11s linear infinite;
+  transform-origin: center center;
+}
+
+/* ---------- HERO LABEL ORBITS ---------- */
+
+@keyframes heroLabelOrbitOne {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heroLabelOrbitTwo {
+  from {
+    transform: rotate(120deg);
+  }
+
+  to {
+    transform: rotate(480deg);
+  }
+}
+
+@keyframes heroLabelOrbitThree {
+  from {
+    transform: rotate(240deg);
+  }
+
+  to {
+    transform: rotate(600deg);
+  }
+}
+
+@keyframes heroLabelCounterOne {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(-360deg);
+  }
+}
+
+@keyframes heroLabelCounterTwo {
+  from {
+    transform: translateY(-50%) rotate(-120deg);
+  }
+
+  to {
+    transform: translateY(-50%) rotate(-480deg);
+  }
+}
+
+@keyframes heroLabelCounterThree {
+  from {
+    transform: translateX(-50%) rotate(-240deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(-600deg);
+  }
+}
+
+.hero-label-orbit-one {
+  animation: heroLabelOrbitOne 22s linear infinite;
+  transform-origin: center center;
+}
+
+.hero-label-orbit-two {
+  animation: heroLabelOrbitTwo 26s linear infinite reverse;
+  transform-origin: center center;
+}
+
+.hero-label-orbit-three {
+  animation: heroLabelOrbitThree 30s linear infinite;
+  transform-origin: center center;
+}
+
+.hero-label-counter-one {
+  animation: heroLabelCounterOne 22s linear infinite;
+  transform-origin: center center;
+}
+
+.hero-label-counter-two {
+  animation: heroLabelCounterTwo 26s linear infinite reverse;
+  transform-origin: center center;
+}
+
+.hero-label-counter-three {
+  animation: heroLabelCounterThree 30s linear infinite;
+  transform-origin: center center;
+}
+
+/* ---------- HERO CHIBI ---------- */
+
+@keyframes heroChibiRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heroChibiCounterRotate {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(-360deg);
+  }
+}
+
+.hero-chibi-spin {
+  animation: heroChibiRotate 14s linear infinite;
+  transform-origin: center center;
+}
+
+.hero-chibi-counter {
+  animation: heroChibiCounterRotate 14s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes heroChibiFrames {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -432px;
+  }
+}
+
+.hero-chibi-sprite {
+  width: 48px;
+  height: 48px;
+  background-image: url("/assets/chibi-walk.png");
+  background-repeat: no-repeat;
+  background-size: 432px 48px;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  animation: heroChibiFrames 0.8s steps(9) infinite;
+}
+
+/* ---------- BASIC SMALL-SCREEN SAFETY ONLY ---------- */
+
+@media (max-width: 768px) {
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .font-display {
+    letter-spacing: -0.04em;
+  }
+
+  .site-cursor-ring {
+    display: none;
+  }
+
+  .site-mouse-aura {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: clamp(3.25rem, 17vw, 5rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(2.25rem, 11vw, 3.5rem) !important;
+  }
+}
